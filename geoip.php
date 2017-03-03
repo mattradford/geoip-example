@@ -1,35 +1,33 @@
 <?php
 /*
-Plugin Name: John Gamboa's GeoIP Redirect Example
-Description: Redirecting visitor traffic based on geo-location using the WPEngine GEO IP feature
-Version: 1.0
-License: GPLv2
+* Plugin Name: WP Engine Geo-IP redirect
+* Description: Redirecting visitor traffic based on geo-location using the WPEngine GEO IP feature
+* Author:      Matt Radford at 10°
+* Author URI:  https://www.10degrees.uk
+* Version: 1.1.0
+* License: GPLv2
 */
 
-function country_geo_redirect() {
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; 
 
-$country = getenv('HTTP_GEOIP_COUNTRY_CODE');
+// Check if WPE Geo-IP plugin is enabled
+if ( class_exists( 'GeoIP' ) ) {
 
-if ( $country == "US" ) {
+    function country_geo_redirect() {
 
-wp_redirect( 'https://en.wikipedia.org/wiki/United_States', 301 );
+        $country = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
 
-     exit;
+        // Checks if visitor is from the UK, otherwise exit
+        if ( $country == "UK" ) {
 
-} else if ( $country == "BR" ) {
+            wp_redirect( 'https://en.wikipedia.org/wiki/United_States', 301 );
+            exit;
 
-wp_redirect( 'https://en.wikipedia.org/wiki/Brazil', 301 );
+        }
 
-     exit;
+    }
 
-}else if ( $country !== "(US|BR)" ) {
-
-wp_redirect( 'https://en.wikipedia.org/wiki/Earth', 301 );
-
-     exit;
-
-}
+    add_action( 'init', 'country_geo_redirect' );
 
 }
-
-add_action('init', 'country_geo_redirect');

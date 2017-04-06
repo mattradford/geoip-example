@@ -1,7 +1,7 @@
 <?php
 /*
-* Plugin Name: 10° Geo-IP redirect
-* Description: Redirecting visitor traffic based on continent, using the WP Engine GEO IP feature
+* Plugin Name: 10° GeoIP redirect
+* Description: Redirecting visitor traffic based on continent, using the WP Engine GeoIP feature
 * Author:      Matt Radford at 10°
 * Author URI:  https://www.10degrees.uk
 * Version: 1.2.3
@@ -289,7 +289,8 @@ function tend_country_geo_redirect() {
 				}
 				break;
         }
-			echo '<meta NAME="geo.region" CONTENT="' . $current_country .'">';
+			// Add Country code into head. Just for testing.
+			// echo '<meta NAME="geo.region" CONTENT="' . $current_country .'">';
    	}
 	
 }
